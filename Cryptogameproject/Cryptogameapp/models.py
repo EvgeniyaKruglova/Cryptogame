@@ -10,7 +10,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(default='default.jpg', upload_to="images/profile/")
 
     def __str__(self):
-        return f'{self.author_user.first_name} {self.author_user.last_name} '
+        return f'{self.user.username} '
 
 
 class ProfilePartner:
