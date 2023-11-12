@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5911de5c-9bb8-468c-aded-b22bdc1a0ecb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/models.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

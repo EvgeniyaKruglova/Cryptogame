@@ -49,19 +49,28 @@ class Award(models.Model):
     description = models.TextField()
 
 
+class CategoryTask(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 class TaskCard(models.Model):
-    title = models.CharField(max_length=64)
+    name = models.CharField(max_length=64)
+    category = models.ForeignKey(CategoryTask, on_delete=models.CASCADE)
     description = models.TextField()
     website = models.URLField(max_length=250)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
     published = models.DateTimeField(auto_now_add=True, db_index=True)
+
+
     def preview(self):
         return self.description[0:123] + '...'
 
-
+    def __str__(self):
+        return self.name
     class Meta:
         verbose_name_plural = 'Tasks'
-        verbose_name = 'Объявление'
+        verbose_name = 'Task'
         ordering= ['published']
 
 
