@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Cryptogameapp.apps.CryptogameappConfig',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
