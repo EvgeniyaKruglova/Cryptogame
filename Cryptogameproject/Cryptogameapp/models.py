@@ -17,7 +17,7 @@ class Profile(models.Model):
 
 
 
-class ProfilePartner:
+class Partner:
     name = title = models.CharField(max_length=64)
     bio = models.TextField(null=True, blank=True)
     profile_pic = models.ImageField(default='default.jpg', upload_to="images/profile_partner/")
@@ -34,7 +34,7 @@ class ProfilePartner:
 
 
 class StudyCard(models.Model):
-    author = models.ForeignKey(ProfilePartner, on_delete=models.CASCADE)
+    author = models.ForeignKey(Partner, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     text = models.TextField()
     file = models.FileField(upload_to='files/study/', null=True, blank=True)
@@ -60,6 +60,7 @@ class TaskCard(models.Model):
     description = models.TextField()
     website = models.URLField(max_length=250)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
+    creator = models.ForeignKey(Partner,on_delete=models.CASCADE, related_name='creator')
     published = models.DateTimeField(auto_now_add=True, db_index=True)
 
 

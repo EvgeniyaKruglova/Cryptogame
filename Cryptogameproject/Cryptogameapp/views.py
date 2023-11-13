@@ -1,7 +1,9 @@
 from django.shortcuts import render
+from rest_framework import filters
 from django.core.paginator import Paginator
 from .models import StudyCard, TaskCard
 from .forms import TaskForm
+from .filters import  TaskCardFilter
 def main_page (request):
     study = StudyCard.objects.all()
     paginator = Paginator(study,3)
@@ -21,7 +23,7 @@ def main_page (request):
 
 
 def task_list(request):
-    tasks = TaskCard.objects.all().order_by('published.strftime("%Y-%m")')
+    tasks = TaskCardFilter(request.GET, queryset=TaskCard.objects.all())
     return render(
         request,
         'task_list.html',
