@@ -69,7 +69,8 @@ class TaskCard(models.Model):
     def preview(self):
         return self.description[0:123] + '...'
 
-class Partner:
+
+class Partner(models.Model):
     name = models.CharField(max_length=64)
     profile_pic = models.ImageField(default='default.jpg', upload_to="/media/images/profile_partner/")
     task = models.ForeignKey(TaskCard, related_name='task', on_delete=models.CASCADE)
@@ -86,6 +87,7 @@ class Partner:
     def __str__(self):
         return f'{self.name} '
 
+
 class StudyCard(models.Model):
     author = models.CharField(max_length=64)
     title = models.CharField(max_length=64)
@@ -95,8 +97,6 @@ class StudyCard(models.Model):
 
     def preview(self):
         return self.text[0:123] + '...'
-
-
 
 # class CategoryTask(models.Model):
 #     name = models.CharField(max_length=50)
