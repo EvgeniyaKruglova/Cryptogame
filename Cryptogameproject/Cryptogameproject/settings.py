@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'Cryptogameapp.apps.CryptogameappConfig',
     'rest_framework',
     'django_filters',
+    'django_celery_beat',
+
 ]
 
 MIDDLEWARE = [
