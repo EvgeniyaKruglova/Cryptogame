@@ -28,6 +28,6 @@ class TaskForm(forms.ModelForm):
         }
 
         widgets = {
-            'website': forms.URLinput
+            'website': forms.URLInput
         }
 
