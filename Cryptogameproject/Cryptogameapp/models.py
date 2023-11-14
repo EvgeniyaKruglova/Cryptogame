@@ -15,6 +15,7 @@ class Profile(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
+
 class Award(models.Model):
     nft = models.FileField(upload_to="/media/award/")
     description = models.TextField()
@@ -22,16 +23,15 @@ class Award(models.Model):
 
 class TaskCard(models.Model):
     name = models.CharField(max_length=64)
-    LEVEL= [
+    LEVEL = [
         ('NW', 'Новичок'),
         ('MD', 'Срединий'),
         ('AD', 'Продвинутый')
     ]
 
+    level = models.CharField(max_length=300, choices=LEVEL, default='NW')
 
-    level = models.CharField (max_length = 300, choices = LEVEL, default = 'NW')
-
-    TYPE= [
+    TYPE = [
         ('ON', 'Onchain'),
         ('OF', 'Ofchain')
     ]
@@ -42,37 +42,37 @@ class TaskCard(models.Model):
     taskpic = models.ImageField(null=True, upload_to="/media/images/tasks/")
     website = models.URLField(max_length=250)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
-    creator = models.CharField(max_length=64,on_delete=models.CASCADE, related_name='creator')
+    creator = models.CharField(max_length=64)
     published = models.DateTimeField(auto_now_add=True, db_index=True)
     STATUS = [
-        ('ED','Ежедневные'),
-        ('EW','Еженедельные'),
-        ('EM','Ежемесячные'),
-        ('ONE','Один раз'),
+        ('ED', 'Ежедневные'),
+        ('EW', 'Еженедельные'),
+        ('EM', 'Ежемесячные'),
+        ('ONE', 'Один раз'),
     ]
     status = models.CharField(max_length=300, choices=STATUS, default='ED')
-
 
     def preview(self):
         return self.description[0:123] + '...'
 
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name_plural = 'Tasks'
         verbose_name = 'Task'
-        ordering= ['published']
-
+        ordering = ['published']
 
     def __str__(self):
         return f'{self.title}'
 
     def preview(self):
         return self.description[0:123] + '...'
+
 class Partner:
-    name = title = models.CharField(max_length=64)
+    name = models.CharField(max_length=64)
     profile_pic = models.ImageField(default='default.jpg', upload_to="/media/images/profile_partner/")
-    task = models.ForeignKey(TaskCard, related_name= 'task')
+    task = models.ForeignKey(TaskCard, related_name='task', on_delete=models.CASCADE)
     email = models.EmailField(max_length=300, unique=True)
 
     # inn_field = models.IntegerField(
@@ -86,9 +86,8 @@ class Partner:
     def __str__(self):
         return f'{self.name} '
 
-
 class StudyCard(models.Model):
-    author = models.ForeignKey(Partner, on_delete=models.CASCADE)
+    author = models.CharField(max_length=64)
     title = models.CharField(max_length=64)
     text = models.TextField()
     file = models.FileField(upload_to='files/study/', null=True, blank=True)
@@ -99,12 +98,8 @@ class StudyCard(models.Model):
 
 
 
-
-
 # class CategoryTask(models.Model):
 #     name = models.CharField(max_length=50)
 #
 #     def __str__(self):
 #         return self.name
-
-
