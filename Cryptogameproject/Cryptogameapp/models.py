@@ -20,7 +20,6 @@ class Award(models.Model):
     description = models.TextField()
 
 
-
 class TaskCard(models.Model):
     name = models.CharField(max_length=64)
     LEVEL= [
@@ -43,7 +42,7 @@ class TaskCard(models.Model):
     taskpic = models.ImageField(null=True, upload_to="/media/images/tasks/")
     website = models.URLField(max_length=250)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
-    creator = models.ForeignKey(Partner,on_delete=models.CASCADE, related_name='creator')
+    creator = models.CharField(max_length=64,on_delete=models.CASCADE, related_name='creator')
     published = models.DateTimeField(auto_now_add=True, db_index=True)
     STATUS = [
         ('ED','Ежедневные'),
@@ -70,7 +69,11 @@ class TaskCard(models.Model):
 
     def preview(self):
         return self.description[0:123] + '...'
-
+class Partner:
+    name = title = models.CharField(max_length=64)
+    profile_pic = models.ImageField(default='default.jpg', upload_to="/media/images/profile_partner/")
+    task = models.ForeignKey(TaskCard, related_name= 'task')
+    email = models.EmailField(max_length=300, unique=True)
 
     # inn_field = models.IntegerField(
     #     default=0,
