@@ -13,7 +13,7 @@ class TaskForm(forms.ModelForm):
                   'type',
                   'status',
                   'beginning_date',
-                  'ending_date ',
+                  # 'last_date ',
                   ]
         labels={
             'name':'Название',
@@ -24,7 +24,7 @@ class TaskForm(forms.ModelForm):
             'type':'Тип',
             'status':'Статус',
             'beginning_date':'Дата начала',
-            'ending_date':'Дата окончания',
+            # 'last_date':'Дата окончания',
         }
 
         widgets = {

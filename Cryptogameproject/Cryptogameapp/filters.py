@@ -1,7 +1,7 @@
-from django_filters import Filterset, CharFilter, DateTimeFilter
+from django_filters import FilterSet, CharFilter, DateTimeFilter
 from .models import TaskCard
 
-class TaskCardFilter(Filterset):
+class TaskCardFilter(FilterSet):
     creator__name = CharFilter(lookup_expr='icontains')
     published = DateTimeFilter()
     class Meta:

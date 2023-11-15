@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from rest_framework import filters
 from django.core.paginator import Paginator
 from .models import StudyCard, TaskCard
