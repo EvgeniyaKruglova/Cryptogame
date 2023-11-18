@@ -5,25 +5,22 @@ from .models import TaskCard
 class TaskForm(forms.ModelForm):
     class Meta:
         model = TaskCard
-        fields = ['name',
-                  'description',
+        fields = ['card_task',
                   'taskpic',
                   'award',
+                  'creator',
                   'level',
                   'type',
                   'status',
-                  'beginning_date',
-                  # 'last_date ',
+                  # 'start_time',
+                  'last_date',
                   ]
         labels={
-            'name':'Название',
-            'description':'Описание',
             'taskpic':'Изображение',
             'award':'Награда',
-            'level':'Уровень',
+            # 'level':'Уровень',
             'type':'Тип',
             'status':'Статус',
-            'beginning_date':'Дата начала',
             # 'last_date':'Дата окончания',
         }
 

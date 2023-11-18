@@ -1,7 +1,7 @@
-from django.db import models
 from django.contrib.auth.admin import User
+from django.db import models
 from django.utils import timezone
-
+from django_celery_beat.models import PeriodicTask
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
@@ -20,9 +20,22 @@ class Award(models.Model):
     nft = models.FileField(upload_to="media/award/")
     description = models.TextField()
 
+class Creator(models.Model):
+    creator = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.creator_user)
+
+
+
+#     return self.name
 class TaskCard(models.Model):
-    name = models.CharField(max_length=64)
+    # name = models.OneToOneField(
+    #     PeriodicTask,
+    #     to_field='name',
+    #     on_delete=models.PROTECT
+    # )
+    card_task = models.OneToOneField(PeriodicTask,on_delete=models.CASCADE,related_name='card_task', null=True)
     LEVEL = [
         ('NW', 'Новичок'),
         ('MD', 'Срединий'),
@@ -36,13 +49,18 @@ class TaskCard(models.Model):
         ('OF', 'Ofchain')
     ]
     type = models.CharField(max_length=300, choices=TYPE, default='ON')
-    beginning_date = models.DateTimeField(verbose_name='Начало события', default=timezone.now)
-    last_date = models.DateTimeField(verbose_name='Окончание события', default=timezone.now)
-    description = models.TextField()
+    # start_time = models.OneToOneField(
+    #     PeriodicTask,
+    #     to_field='start_time',
+    #     verbose_name='Начало события',
+    #     related_name = 'begining_time',
+    #     on_delete=models.PROTECT)
+    last_date = models.DateTimeField( default=timezone.now)
+    # description = models.TextField()
     taskpic = models.ImageField(null=True, upload_to="media/images/tasks/")
-    website = models.URLField(max_length=250)
+    website = models.URLField(max_length=250, null= True, blank= True)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
-    creator = models.CharField(max_length=64)
+    creator = models.ForeignKey(Creator,on_delete=models.CASCADE)
     # published = models.DateTimeField(auto_now_add=True, db_index=True)
     STATUS = [
         ('ED', 'Ежедневные'),
@@ -52,22 +70,24 @@ class TaskCard(models.Model):
     ]
     status = models.CharField(max_length=300, choices=STATUS, default='ED')
 
-    def preview(self):
-        return self.description[0:123] + '...'
-
-    def __str__(self):
-        return self.name
+    # def preview(self):
+    #     return self.description[0:123] + '...'
+    #
+    # def __str__(self):
+    #     return self.name
 
     class Meta:
         verbose_name_plural = 'Tasks'
         verbose_name = 'Task'
-        ordering = ['beginning_date']
+        # ordering = ['start_time']
 
-    def __str__(self):
-        return f'{self.title}'
 
-    def preview(self):
-        return self.description[0:123] + '...'
+
+    # def __str__(self):
+    #     return f'{self.title}'
+    #
+    # def preview(self):
+    #     return self.description[0:123] + '...'
 
 
 class Partner(models.Model):
