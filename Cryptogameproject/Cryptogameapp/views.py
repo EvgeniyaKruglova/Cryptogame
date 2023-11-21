@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect
 from rest_framework import filters
 from django.core.paginator import Paginator
-from .models import StudyCard, TaskCard, Partner
+
+from . import tweepy
+from .models import StudyCard, TaskCard, Partner, Profile
 from .forms import TaskForm
 from .filters import  TaskCardFilter
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
+
+from .tweepy import api
+
+
 def main_page (request):
     study = StudyCard.objects.all()
     paginator = Paginator(study,3)
@@ -67,6 +73,36 @@ def task_delete(request, pk):
     task = get_object_or_404(TaskCard, pk=pk)
     task.delete()
     return redirect('task_list')
+
+def task_update(request,**kwargs):
+
+    username = Profile.twitter_username
+    try:
+        user = api.get_user(screen_name=username)
+        user_id = user.id
+        print(f'User ID for {username} is: {user_id}')
+    except tweepy.error.TweepError as e:
+        print(f'Error: {e}')
+    return user_id
+
+    categoty_task = TaskCard.category
+    if categoty_task == "LK":
+        response = client.get_liked_tweets(user_id, tweet_fields=["created_at"])
+
+        for tweet in response.data:
+            return tweet.id, tweet.created_at
+        tweet.id.save()
+        tweet.created_at.save()
+    else:
+        query = "CRYPTOCAPS"
+        tweets = api.search(q=query)
+        for tweet in tweets:
+           return tweet.text
+        tweet.text.save()
+
+    task_card = TaskCard.objects.get(id=kwargs.get('pk'))
+    task_card.progress = 'CM'
+    task_card.save()
 
 class PartnerList(ListView):
     model = Partner
