@@ -11,10 +11,3 @@ auth.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(auth)
 
-username = Profile.twitter_username
-try:
-    user = api.get_user(screen_name=username)
-    user_id = user.id
-    print(f'User ID for {username} is: {user_id}')
-except tweepy.error.TweepError as e:
-    print(f'Error: {e}')
