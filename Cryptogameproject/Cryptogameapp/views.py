@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from rest_framework import filters
 from django.core.paginator import Paginator
-from .models import StudyCard, TaskCard
+from .models import StudyCard, TaskCard, Partner
 from .forms import TaskForm
 from .filters import  TaskCardFilter
 from django.shortcuts import get_object_or_404
+from django.views.generic import ListView, DetailView
 def main_page (request):
     study = StudyCard.objects.all()
     paginator = Paginator(study,3)
@@ -66,3 +67,14 @@ def task_delete(request, pk):
     task = get_object_or_404(TaskCard, pk=pk)
     task.delete()
     return redirect('task_list')
+
+class PartnerList(ListView):
+    model = Partner
+    ordering = 'name'
+    template_name = 'partners.html'
+    context_object_name = 'partners'
+
+class PartnerDetail(DetailView):
+    model = Partner
+    template_name = 'partner.html'
+    context_object_name = 'partner'
