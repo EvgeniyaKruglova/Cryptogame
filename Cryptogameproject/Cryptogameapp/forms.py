@@ -11,6 +11,7 @@ class TaskForm(forms.ModelForm):
                   'creator',
                   'level',
                   'type',
+                  'category',
                   'status',
                   # 'start_time',
                   'last_date',
@@ -20,6 +21,7 @@ class TaskForm(forms.ModelForm):
             'award':'Награда',
             # 'level':'Уровень',
             'type':'Тип',
+            'category':'Категория задания',
             'status':'Статус',
             # 'last_date':'Дата окончания',
         }

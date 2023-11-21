@@ -8,6 +8,7 @@ class Profile(models.Model):
     bio = models.TextField(null=True, blank=True)
     email = models.EmailField(max_length=300, unique=True)
     profile_pic = models.ImageField(default='default.jpg', upload_to="media/images/profile/")
+    twitter_username = models.CharField(max_length=64)
 
     def __str__(self):
         return f'{self.user.username} '
@@ -48,6 +49,11 @@ class TaskCard(models.Model):
         ('ON', 'Onchain'),
         ('OF', 'Ofchain')
     ]
+    CATEGORY= [
+        ('LK', 'Поставить лайк'),
+        ('QR', 'Поиск соответствия')
+    ]
+    category = models.CharField(max_length=300, choices=CATEGORY, default='LK')
     type = models.CharField(max_length=300, choices=TYPE, default='ON')
     # start_time = models.OneToOneField(
     #     PeriodicTask,
@@ -70,6 +76,11 @@ class TaskCard(models.Model):
     ]
     status = models.CharField(max_length=300, choices=STATUS, default='ED')
 
+    PROGRESS = [
+        ('AC', 'Аctive'),
+        ('CM', 'Completed'),
+    ]
+    progress = models.CharField(max_length=300, choices=PROGRESS, default='AC')
     # def preview(self):
     #     return self.description[0:123] + '...'
     #
