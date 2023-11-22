@@ -85,7 +85,6 @@ def task_update(request,**kwargs):
     except tweepy.error.TweepError as e:
         print(f'Error: {e}')
     return user_id
-
     categoty_task = TaskCard.category
     if categoty_task == "LK":
         response = client.get_liked_tweets(user_id, tweet_fields=["created_at"])
@@ -94,12 +93,14 @@ def task_update(request,**kwargs):
             return tweet.id, tweet.created_at
         tweet.id.save()
         tweet.created_at.save()
+        print(tweet.id)
     else:
         query = "CRYPTOCAPS"
         tweets = api.search(q=query)
         for tweet in tweets:
            return tweet.text
         tweet.text.save()
+        print(tweet.text)
 
     task_card = TaskCard.objects.get(id=kwargs.get('pk'))
     task_card.progress = 'CM'

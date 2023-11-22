@@ -8,7 +8,7 @@ class Profile(models.Model):
     bio = models.TextField(null=True, blank=True)
     email = models.EmailField(max_length=300, unique=True)
     profile_pic = models.ImageField(default='default.jpg', upload_to="media/images/profile/")
-    twitter_username = models.CharField(max_length=64)
+    twitter_username = models.CharField(max_length=64,blank=False)
 
     def __str__(self):
         return f'{self.user.username} '
@@ -18,14 +18,17 @@ class Profile(models.Model):
 
 
 class Award(models.Model):
-    nft = models.FileField(upload_to="media/award/")
-    description = models.TextField()
+    nft = models.FileField(null=True, blank=True,upload_to="media/award/")
+    token_award = models.FileField(null=True, blank=True,upload_to="media/token_awards/")
+    experience = models.IntegerField(null=True, blank=True)
+
+
 
 class Creator(models.Model):
     creator = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.creator_user)
+        return str(self.creator)
 
 
 

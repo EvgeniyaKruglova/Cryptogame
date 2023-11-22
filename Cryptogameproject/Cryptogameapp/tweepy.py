@@ -1,5 +1,5 @@
 import tweepy
-from Cryptogameproject.Cryptogameapp.models import Profile
+
 
 consumer_key = 'g6ElvnvtQK6OFw4IMKymliz4H'
 consumer_secret = 'dOlbS7hje8f5fcZrUAVsrzdBDESlS8Lz9YBWIMksV2r575gUkx'
