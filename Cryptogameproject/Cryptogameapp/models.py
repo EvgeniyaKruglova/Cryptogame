@@ -107,8 +107,8 @@ class TaskCard(models.Model):
 class Partner(models.Model):
     name = models.CharField(max_length=64)
     profile_pic = models.ImageField(default='default.jpg', upload_to="media/images/profile_partner/")
-    task = models.ForeignKey(TaskCard, related_name='task', on_delete=models.CASCADE)
     email = models.EmailField(max_length=300, unique=True)
+    short_description = models.TextField(max_length=500, null=True, blank=True)
 
     def __str__(self):
         return f'{self.name} '
