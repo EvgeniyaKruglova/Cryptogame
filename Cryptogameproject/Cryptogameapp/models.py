@@ -34,12 +34,9 @@ class Creator(models.Model):
 
 #     return self.name
 class TaskCard(models.Model):
-    # name = models.OneToOneField(
-    #     PeriodicTask,
-    #     to_field='name',
-    #     on_delete=models.PROTECT
-    # )
+
     card_task = models.OneToOneField(PeriodicTask,on_delete=models.CASCADE,related_name='card_task', null=True)
+    name= models.CharField(max_length=300,null=False, blank=False)
     LEVEL = [
         ('NW', 'Новичок'),
         ('MD', 'Срединий'),
@@ -64,8 +61,9 @@ class TaskCard(models.Model):
     #     verbose_name='Начало события',
     #     related_name = 'begining_time',
     #     on_delete=models.PROTECT)
+    start_date= models.DateTimeField( default=timezone.now)
     last_date = models.DateTimeField( default=timezone.now)
-    # description = models.TextField()
+    description = models.TextField(null=False, blank=False,default=None)
     taskpic = models.ImageField(null=True, upload_to="media/images/tasks/")
     website = models.URLField(max_length=250, null= True, blank= True)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)

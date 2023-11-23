@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from rest_framework import filters
 from django.core.paginator import Paginator
-
+from rest_framework.decorators import api_view
+from .serializers import *
+from rest_framework.response import Response
+from rest_framework import status
 from . import tweepy
 from .models import StudyCard, TaskCard, Partner, Profile
 from .forms import TaskForm
@@ -29,13 +32,27 @@ def main_page (request):
 
     )
 
-
+@api_view(['GET','POST'])
 def task_list(request):
-    tasks = TaskCardFilter(request.GET, queryset=TaskCard.objects.all())
-    return render(
-        request,
-        'task_list.html',
-        context={'tasks': tasks})
+    if request.method == 'GET':
+        task_list = TaskCard.objects.all()
+        serializer = TaskCardSerializer(task_list, many=True)
+        return Response(serializer.data)
+    elif request.method == 'POST':
+        serializer = TaskCardSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+# def task_list(request):
+#     tasks = TaskCardFilter(request.GET, queryset=TaskCard.objects.all())
+#     return render(
+#         request,
+#         'task_list.html',
+#         context={'tasks': tasks})
 
 def task_detail(request,pk):
     task= get_object_or_404(TaskCard,pk=pk)
