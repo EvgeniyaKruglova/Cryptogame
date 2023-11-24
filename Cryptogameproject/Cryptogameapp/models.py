@@ -10,19 +10,13 @@ class Profile(models.Model):
     profile_pic = models.ImageField(default='default.jpg', upload_to="media/images/profile/")
     twitter_username = models.CharField(max_length=64,blank=False)
     level = models.IntegerField(default=1)
-    MEDIA = [
-        ('Twitter', 'https://twitter.com/?lang=ru'),
-        ('Discord', 'https://discord.com/'),
-        ('Telegram', 'https://web.telegram.org/')
-    ]
-    socialMedia = models.URLField(choices=MEDIA, blank=True, null=True)
-    WALLET = [
-        ('Binance', 'https://www.binance.com/ru'),
-        ('metaMask', 'https://metamask.io/'),
-        ('TrustWallet', 'https://trustwallet.com/ru/'),
-        ('Phantom', 'https://phantom.app/')
-    ]
-    wallets = models.URLField(choices=WALLET, blank=True, null=True)
+    Twitter = models.URLField(blank=True, null=True)
+    Discord = models.URLField(blank=True, null=True)
+    Telegram = models.URLField(blank=True, null=True)
+    Binance = models.URLField(blank=True, null=True)
+    metaMask = models.URLField(blank=True, null=True)
+    TrustWallet = models.URLField(blank=True, null=True)
+    Phantom = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} '
