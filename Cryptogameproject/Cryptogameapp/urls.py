@@ -1,15 +1,15 @@
 from django.urls import path
 from .views import (
-    main_page, task_detail,task_list, task_create, task_edit, task_delete, PartnerList, PartnerDetail, ProfileDetail
+    main_page,TaskList,TaskDetail, TaskCreate, TaskEdit, TaskDelete, PartnerList, PartnerDetail, ProfileDetail
 )
 
 urlpatterns = [
     path('', main_page, name='main_page'),
-    path('task/<int:pk>/', task_detail, name='task_detail'),
-    path('tasklist', task_list, name='task_list'),
-    path('create/', task_create, name='task_create'),
-    path('task/<int:pk>/edit/', task_edit, name='task_edit'),
-    path('task/<int:pk>/delete/', task_delete, name='task_delete'),
+    path('tasklist', TaskList.as_view, name='task_list'),
+    path('tasklist/<int:pk>', TaskDetail.as_view, name='task_detail'),
+    path('tasklist/create/', TaskCreate.as_view, name='task_create'),
+    path('tasklist/<int:pk>/edit/', TaskEdit.as_view, name='task_edit'),
+    path('tasklist/<int:pk>/delete/', TaskDelete.as_view, name='task_delete'),
     path('', PartnerList.as_view()),
     path('<int:pk>', PartnerDetail.as_view()),
     path('<int:pk>', ProfileDetail.as_view()),

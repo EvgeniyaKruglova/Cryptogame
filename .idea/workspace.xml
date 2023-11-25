@@ -6,12 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="5911de5c-9bb8-468c-aded-b22bdc1a0ecb" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/migrations/0010_taskcard_name_taskcard_start_date.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/migrations/0011_remove_taskcard_start_date_alter_taskcard_name.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/migrations/0012_alter_taskcard_name.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/migrations/0013_alter_taskcard_name.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/migrations/0014_taskcard_description_taskcard_start_date_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/filters.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/filters.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cryptogameproject/Cryptogameapp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -72,7 +72,7 @@ class TaskCard(models.Model):
     website = models.URLField(max_length=250, null= True, blank= True)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
     creator = models.ForeignKey(Creator,on_delete=models.CASCADE)
-    # published = models.DateTimeField(auto_now_add=True, db_index=True)
+    published = models.DateTimeField(auto_now_add=True, db_index=True)
     STATUS = [
         ('ED', 'Ежедневные'),
         ('EW', 'Еженедельные'),
