@@ -8,7 +8,7 @@ class SignUp(CreateView):
     form_class = SignUpForm
     success_url = '/accounts/login'
 
-    template_name = 'registration/signup.html'
+    template_name = 'signup.html'
 
 
 from django.shortcuts import render

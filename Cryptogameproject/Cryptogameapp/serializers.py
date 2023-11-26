@@ -29,4 +29,4 @@ class TaskCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TaskCard
-        fields = ['id','creator','title','definition','award','level', 'category', 'type','start','last_date','website', 'status','progress']
+        fields = ['id','creator','title','definition','award','level', 'category', 'type','start','last_date','website','social_network' ,'status','progress']

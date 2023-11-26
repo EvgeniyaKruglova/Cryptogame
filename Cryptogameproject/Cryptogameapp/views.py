@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from rest_framework import filters, viewsets
@@ -89,7 +90,8 @@ class TaskDetail(DetailView):
 #         'task_detail.html',
 #         context={'task': task})
 
-class TaskCreate(CreateView):
+class TaskCreate(PermissionRequiredMixin,CreateView):
+    permission_required = ('Cryptogameapp.add_Task')
     form_class = TaskForm
     model = TaskCard
     template_name = 'task_edit.html'
@@ -109,7 +111,8 @@ class TaskCreate(CreateView):
 #         form = TaskForm()
 #     return render(request, 'task_create.html', {'form': form})
 
-class TaskEdit (UpdateView):
+class TaskEdit (PermissionRequiredMixin,UpdateView):
+    permission_required = ('Cryptogameapp.change_Task')
     form_class = TaskForm
     model = TaskCard
     template_name = 'task_edit.html'
@@ -135,7 +138,8 @@ class TaskEdit (UpdateView):
 #         form = TaskForm(instance=task)
 #     return render(request, 'task_edit.html', {'form': form})
 
-class TaskDelete(DeleteView):
+class TaskDelete(PermissionRequiredMixin,DeleteView):
+    permission_required = ('Cryptogameapp.delete_Task')
     model = TaskCard
     template_name = 'taskcard_delete.html'
     success_url = reverse_lazy('task_list')

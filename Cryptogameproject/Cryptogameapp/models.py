@@ -82,13 +82,19 @@ class TaskCard(models.Model):
         ('ONE', 'Один раз'),
     ]
     status = models.CharField(max_length=300, choices=STATUS, default='ED')
-
+    SOCIAL_NETWORK = [
+        ('TW','Twitter'),
+        ('TG','Telegram'),
+        ('DC','Discord'),
+    ]
+    social_network = models.CharField(max_length=300, choices=SOCIAL_NETWORK, default='TW')
     PROGRESS = [
         ('AC', 'Аctive'),
         ('CM', 'Completed'),
 
     ]
     progress = models.CharField(max_length=300, choices=PROGRESS, default='AC')
+
     # def preview(self):
     #     return self.description[0:123] + '...'
     #
@@ -110,7 +116,7 @@ class TaskCard(models.Model):
 
 
 class Partner(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     profile_pic = models.ImageField(default='default.jpg', upload_to="media/images/profile_partner/")
     email = models.EmailField(max_length=300, unique=True)
     short_description = models.TextField(max_length=500, null=True, blank=True)
@@ -120,7 +126,7 @@ class Partner(models.Model):
 
 
 class StudyCard(models.Model):
-    author = models.CharField(max_length=64)
+    author = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=64)
     text = models.TextField()
     file = models.FileField(upload_to='files/study/', null=True, blank=True)
