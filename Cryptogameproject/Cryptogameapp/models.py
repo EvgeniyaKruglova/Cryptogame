@@ -41,6 +41,8 @@ class Creator(models.Model):
 
 
 class TaskCard(models.Model):
+    title = models.CharField(max_length=64,null=True)
+    definition = models.TextField(null=True, blank=False)
     card_task = models.OneToOneField(PeriodicTask,on_delete=models.CASCADE,related_name='card_task', null=True)
     LEVEL = [
         ('NW', 'Новичок'),
@@ -66,13 +68,13 @@ class TaskCard(models.Model):
     #     verbose_name='Начало события',
     #     related_name = 'begining_time',
     #     on_delete=models.PROTECT)
-    # start_date= models.DateTimeField( default=timezone.now)
+    start= models.DateTimeField( default=timezone.now,null= True, verbose_name= "start_date")
     last_date = models.DateTimeField( default=timezone.now)
     taskpic = models.ImageField(null=True, upload_to="media/images/tasks/")
     website = models.URLField(max_length=250, null= True, blank= True)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
     creator = models.ForeignKey(Creator,on_delete=models.CASCADE)
-    published = models.DateTimeField(auto_now_add=True, db_index=True)
+    published = models.DateTimeField(auto_now_add=True,null=True)
     STATUS = [
         ('ED', 'Ежедневные'),
         ('EW', 'Еженедельные'),
@@ -84,6 +86,7 @@ class TaskCard(models.Model):
     PROGRESS = [
         ('AC', 'Аctive'),
         ('CM', 'Completed'),
+
     ]
     progress = models.CharField(max_length=300, choices=PROGRESS, default='AC')
     # def preview(self):
@@ -125,3 +128,4 @@ class StudyCard(models.Model):
 
     def preview(self):
         return self.text[0:123] + '...'
+

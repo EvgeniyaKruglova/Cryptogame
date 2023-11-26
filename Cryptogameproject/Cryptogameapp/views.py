@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from rest_framework import filters
+from rest_framework import filters, viewsets
 from django.core.paginator import Paginator
 from rest_framework.decorators import api_view
 from .serializers import *
@@ -196,3 +196,13 @@ class ProfileDetail(DetailView):
     model = Profile
     template_name = 'profile.html'
     context_object_name = 'profile'
+
+
+class ProfileAPIView(viewsets.ModelViewSet):
+    queryset = Partner.objects.all()
+    serializer_class = ProfileSerializer
+
+class TasckCardAPIView(viewsets.ModelViewSet):
+    queryset = TaskCard.objects.all().order_by('published')
+    serializer_class = TaskCardSerializer
+

@@ -1,9 +1,16 @@
-from django.urls import path
+from django.urls import path, include
 from .views import (
-    main_page,TaskList,TaskDetail, TaskCreate, TaskEdit, TaskDelete, PartnerList, PartnerDetail, ProfileDetail
+    main_page, TaskList, TaskDetail, TaskCreate, TaskEdit, TaskDelete, PartnerList, PartnerDetail, ProfileDetail,
+    ProfileAPIView, TasckCardAPIView
 )
+from rest_framework import routers
 
+router = routers.DefaultRouter()
+router.register(r'profile', ProfileAPIView)
+router.register(r'taskcard', TasckCardAPIView)
 urlpatterns = [
+    path('', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', main_page, name='main_page'),
     path('tasklist', TaskList.as_view, name='task_list'),
     path('tasklist/<int:pk>', TaskDetail.as_view, name='task_detail'),

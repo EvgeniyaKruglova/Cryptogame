@@ -1,7 +1,19 @@
 from rest_framework import serializers
-from .models import Award, Creator,TaskCard
+from .models import Award, Creator,TaskCard, Profile
 
-
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['id',
+                  'user',
+                  'bio',
+                  'email',
+                  'profile_pic',
+                  'twitter_username',
+                  'level',
+                  'Twitter', 'Discord', 'Telegram',
+                  'Binance', 'metaMask', 'TrustWallet','Phantom'
+                  ]
 class AwardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Award
@@ -17,4 +29,4 @@ class TaskCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TaskCard
-        fields = ['id','creator','name','description','award','level', 'category', 'type','start_date','last_date','website', 'status','progress']
+        fields = ['id','creator','title','definition','award','level', 'category', 'type','start','last_date','website', 'status','progress']
