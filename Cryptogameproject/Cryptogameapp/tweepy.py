@@ -32,8 +32,12 @@ def get_twitter_user_id(username):
 #поиск твитов по ключевому слову
 def search_twitter(query):
     api = twitter_api()
-    response = api.search(q=query)
+    response = api.search_tweets(q=query)
     tweets = json.dumps(response)
     return tweets
 
 
+tweets = search_twitter('python')
+
+for tweet in tweets:
+    print(tweet.text)

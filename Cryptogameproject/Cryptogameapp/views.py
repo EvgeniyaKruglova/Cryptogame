@@ -155,11 +155,9 @@ class ProfileDetail(DetailView):
     username = Profile.twitter_username
     user = get_twitter_user_id(username)
     def get_context_data(self, **kwargs):
-        
-
-
-
-
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.user
+        return context
 
 
 class ProfileAPIView(viewsets.ModelViewSet):
