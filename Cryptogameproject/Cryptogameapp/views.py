@@ -8,14 +8,13 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
 from . import tweepy
+from tweepy import get_twitter_user_id
 from .models import StudyCard, TaskCard, Partner, Profile
 from .forms import TaskForm
 from .filters import  TaskCardFilter
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.http import HttpResponse
-
-from .tweepy import api
 
 
 def main_page (request):
@@ -66,14 +65,6 @@ class TaskList(ListView):
 
 
 
-# def task_list(request):
-#     tasks = TaskCardFilter(request.GET, queryset=TaskCard.objects.all())
-#     return render(
-#         request,
-#         'task_list.html',
-#         context={'tasks': tasks})
-
-
 class TaskDetail(DetailView):
     model = TaskCard
     template_name = 'task_detail.html'
@@ -83,12 +74,6 @@ class TaskDetail(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
-# def task_detail(request,pk):
-#     task= get_object_or_404(TaskCard,pk=pk)
-#     return render(
-#         request,
-#         'task_detail.html',
-#         context={'task': task})
 
 class TaskCreate(PermissionRequiredMixin,CreateView):
     permission_required = ('Cryptogameapp.add_Task')
@@ -101,15 +86,6 @@ class TaskCreate(PermissionRequiredMixin,CreateView):
         a.save()
         return super().form_valid(form)
 
-# def task_create(request):
-#     if request.method == 'POST':
-#         form = TaskForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('task_list')
-#     else:
-#         form = TaskForm()
-#     return render(request, 'task_create.html', {'form': form})
 
 class TaskEdit (PermissionRequiredMixin,UpdateView):
     permission_required = ('Cryptogameapp.change_Task')
@@ -126,18 +102,6 @@ class TaskEdit (PermissionRequiredMixin,UpdateView):
 
 
 
-# def task_edit(request, pk):
-#     task = get_object_or_404(TaskCard, pk=pk)
-#     if request.method == "POST":
-#         form = TaskForm(request.POST, instance=task)
-#         if form.is_valid():
-#             task = form.save(commit=False)
-#             task.save()
-#             return redirect('task_detail', pk=task.pk)
-#     else:
-#         form = TaskForm(instance=task)
-#     return render(request, 'task_edit.html', {'form': form})
-
 class TaskDelete(PermissionRequiredMixin,DeleteView):
     permission_required = ('Cryptogameapp.delete_Task')
     model = TaskCard
@@ -150,22 +114,10 @@ class TaskDelete(PermissionRequiredMixin,DeleteView):
         else:
              return HttpResponse("Удалить задание может только его автор")
 
-# def task_delete(request, pk):
-#     task = get_object_or_404(TaskCard, pk=pk)
-#     task.delete()
-#     return redirect('task_list')
 
 
-# def task_update(request,**kwargs):
-#
-#     username = Profile.twitter_username
-#     try:
-#         user = api.get_user(screen_name=username)
-#         user_id = user.id
-#         print(f'User ID for {username} is: {user_id}')
-#     except tweepy.error.TweepError as e:
-#         print(f'Error: {e}')
-#     return user_id
+
+
 #     categoty_task = TaskCard.category
 #     if categoty_task == "LK":
 #         response = client.get_liked_tweets(user_id, tweet_fields=["created_at"])
@@ -200,6 +152,14 @@ class ProfileDetail(DetailView):
     model = Profile
     template_name = 'profile.html'
     context_object_name = 'profile'
+    username = Profile.twitter_username
+    user = get_twitter_user_id(username)
+    def get_context_data(self, **kwargs):
+        
+
+
+
+
 
 
 class ProfileAPIView(viewsets.ModelViewSet):
