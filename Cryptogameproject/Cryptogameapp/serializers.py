@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Award, Creator,TaskCard, Profile
+from .models import Award, TaskCard, Profile
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,13 +19,13 @@ class AwardSerializer(serializers.ModelSerializer):
         model = Award
         fields = ['id', 'nft', 'token_award', 'experience']
 
-class CreatorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Creator
-        fields = ['id', 'creator']
+# class CreatorSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Creator
+#         fields = ['id', 'creator']
 class TaskCardSerializer(serializers.ModelSerializer):
     award = AwardSerializer()
-    creator = CreatorSerializer()
+    # creator = CreatorSerializer()
 
     class Meta:
         model = TaskCard

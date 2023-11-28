@@ -8,15 +8,15 @@ class Profile(models.Model):
     bio = models.TextField(null=True, blank=True)
     email = models.EmailField(max_length=300, unique=True)
     profile_pic = models.ImageField(default='default.jpg', upload_to="media/images/profile/")
-    twitter_username = models.CharField(max_length=64,blank=False)
+    twitter_username = models.CharField(max_length=64,blank=True, null=True)
     level = models.IntegerField(default=1)
     Twitter = models.URLField(blank=True, null=True)
     Discord = models.URLField(blank=True, null=True)
     Telegram = models.URLField(blank=True, null=True)
-    Binance = models.URLField(blank=True, null=True)
-    metaMask = models.URLField(blank=True, null=True)
-    TrustWallet = models.URLField(blank=True, null=True)
-    Phantom = models.URLField(blank=True, null=True)
+    Binance = models.CharField(max_length=64,blank=True, null=True)
+    metaMask = models.CharField(max_length=64,blank=True, null=True)
+    TrustWallet = models.CharField(max_length=64,blank=True, null=True)
+    Phantom = models.CharField(max_length=64,blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} '
@@ -32,11 +32,11 @@ class Award(models.Model):
 
 
 
-class Creator(models.Model):
-    creator = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.creator)
+# class Creator(models.Model):
+#     creator = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+#
+#     def __str__(self):
+#         return str(self.creator)
 
 
 
@@ -73,7 +73,7 @@ class TaskCard(models.Model):
     taskpic = models.ImageField(null=True, upload_to="media/images/tasks/")
     website = models.URLField(max_length=250, null= True, blank= True)
     award = models.ForeignKey(Award, on_delete=models.CASCADE)
-    creator = models.ForeignKey(Creator,on_delete=models.CASCADE)
+    creator = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     published = models.DateTimeField(auto_now_add=True,null=True)
     STATUS = [
         ('ED', 'Ежедневные'),

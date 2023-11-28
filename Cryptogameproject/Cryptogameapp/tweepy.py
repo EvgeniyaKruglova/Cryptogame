@@ -16,11 +16,11 @@ def twitter_api():
     return api
 
 
-username = Profile.twitter_username
+
 # функция для получения ID пользователя Twitter по его username
 def get_twitter_user_id(username):
     # формируем URL для запроса к API Twitter
-    url = "https://api.twitter.com/1.1/users/show.json?screen_name=" + username
+    url = "https://api.twitter.com/1.1/users/show.json?screen_name=" + str(username)
     # делаем запрос к API Twitter
     response = requests.get(url, auth=(consumer_key, consumer_secret, access_token, access_token_secret))
     # получаем JSON-объект, содержащий информацию о пользователе

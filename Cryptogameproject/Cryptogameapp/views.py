@@ -7,8 +7,8 @@ from rest_framework.decorators import api_view
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework import status
-from . import tweepy
-from tweepy import get_twitter_user_id
+from .tweepy import get_twitter_user_id
+
 from .models import StudyCard, TaskCard, Partner, Profile
 from .forms import TaskForm
 from .filters import  TaskCardFilter
@@ -80,11 +80,11 @@ class TaskCreate(PermissionRequiredMixin,CreateView):
     form_class = TaskForm
     model = TaskCard
     template_name = 'task_edit.html'
-    def form_valid(self, form):
-        a = form.save(commit=False)
-        a.creator = Creator.objects.get(creator_user=self.request.user)
-        a.save()
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     a = form.save(commit=False)
+    #     a.creator = Creator.objects.get(creator_user=self.request.user)
+    #     a.save()
+    #     return super().form_valid(form)
 
 
 class TaskEdit (PermissionRequiredMixin,UpdateView):
@@ -153,12 +153,11 @@ class ProfileDetail(DetailView):
     template_name = 'profile.html'
     context_object_name = 'profile'
     username = Profile.twitter_username
-    user = get_twitter_user_id(username)
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user'] = self.user
-        return context
-
+    # user = get_twitter_user_id(username)
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['user'] = self.user
+    #     return context
 
 class ProfileAPIView(viewsets.ModelViewSet):
     queryset = Partner.objects.all()
