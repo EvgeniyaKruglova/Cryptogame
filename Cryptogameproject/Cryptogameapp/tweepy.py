@@ -37,7 +37,8 @@ def search_twitter(query):
     return tweets
 
 
-tweets = search_twitter('python')
+# tweets = search_twitter('python')
+#
+# for tweet in tweets:
+#     print(tweet.text)
 
-for tweet in tweets:
-    print(tweet.text)
