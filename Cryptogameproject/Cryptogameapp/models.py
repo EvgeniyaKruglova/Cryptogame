@@ -4,7 +4,7 @@ from django.utils import timezone
 from django_celery_beat.models import PeriodicTask
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(null=True, blank=True)
     email = models.EmailField(max_length=300, unique=True)
     profile_pic = models.ImageField(default='default.jpg', upload_to="media/images/profile/")
